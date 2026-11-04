@@ -1,18 +1,11 @@
-import React from 'react';
+import PageBanner from '../components/PageBanner'
+import ShareButtons from '../components/ShareButtons'
 
 export default function BlogFullWidth() {
   return (
     <div className="w-full bg-white text-gray-800 font-sans">
       
-      {/* PAGE HEADER BANNER */}
-      <section className="w-full bg-red-500 py-6 px-4 md:px-12 text-white flex items-center justify-between">
-        <h1 className="text-xl md:text-2xl font-bold">Blog Details</h1>
-        <div className="text-xs font-medium space-x-1 opacity-90">
-          <span>Home</span>
-          <span>-</span>
-          <span className="font-semibold">Blog Details</span>
-        </div>
-      </section>
+      <PageBanner title="Blog Details" />
 
       {/* MAIN CONTENT AREA */}
       <main className="max-w-5xl mx-auto px-4 sm:px-6 py-10 space-y-8">
@@ -103,21 +96,9 @@ export default function BlogFullWidth() {
             <span className="text-xs px-3 py-1 bg-gray-100 text-gray-600 rounded-md font-medium">Fast Food</span>
           </div>
 
-          <div className="flex items-center gap-3 text-xs text-gray-500">
-            <button className="w-7 h-7 rounded-full bg-gray-100 hover:bg-red-500 hover:text-white transition-colors flex items-center justify-center font-bold">f</button>
-            <button className="w-7 h-7 rounded-full bg-gray-100 hover:bg-red-500 hover:text-white transition-colors flex items-center justify-center font-bold">X</button>
-            <button className="w-7 h-7 rounded-full bg-gray-100 hover:bg-red-500 hover:text-white transition-colors flex items-center justify-center font-bold">in</button>
-          </div>
+          <ShareButtons />
         </div>
 
-        {/* PAGINATION */}
-        <div className="flex items-center justify-center gap-2 pt-6">
-          <button className="px-3 py-1 bg-gray-100 text-gray-500 rounded text-xs font-medium">Previous</button>
-          <button className="px-3 py-1 bg-red-500 text-white rounded text-xs font-bold">1</button>
-          <button className="px-3 py-1 bg-gray-100 text-gray-600 rounded text-xs font-medium">2</button>
-          <button className="px-3 py-1 bg-gray-100 text-gray-600 rounded text-xs font-medium">3</button>
-          <button className="px-3 py-1 bg-gray-100 text-gray-500 rounded text-xs font-medium">Next</button>
-        </div>
 
       </main>
     </div>

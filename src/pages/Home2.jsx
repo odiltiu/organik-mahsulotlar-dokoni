@@ -1,4 +1,7 @@
-import React from 'react';
+import { Link } from 'react-router-dom'
+import ProductCard from '../components/shop/ProductCard'
+import { CATEGORIES, PRODUCTS } from '../data/products'
+
 
 export default function Home2() {
   return (
@@ -16,9 +19,9 @@ export default function Home2() {
               <span className="text-white">WALLET.</span>
             </h1>
             <p className="text-xs text-gray-400">Tasty & Fresh Food</p>
-            <button className="bg-amber-500 hover:bg-amber-600 text-gray-900 font-bold text-xs px-6 py-3 rounded-full flex items-center gap-2 shadow-lg transition-all">
+            <Link to="/full-wide" className="bg-amber-500 hover:bg-amber-600 text-gray-900 font-bold text-xs px-6 py-3 rounded-full flex items-center gap-2 shadow-lg transition-all">
               SHOP NOW ➔
-            </button>
+            </Link>
           </div>
           <div className="hidden md:flex flex-col items-center justify-center relative w-1/2 h-80">
             <div className="absolute top-4 right-12 bg-white/10 backdrop-blur-md border border-white/20 rounded-full w-24 h-24 flex flex-col items-center justify-center text-center">
@@ -62,7 +65,7 @@ export default function Home2() {
             <div className="relative z-10 space-y-2">
               <span className="text-3xl font-black text-white">50% OFF</span>
               <p className="text-xs text-gray-200">Tasty Cake</p>
-              <button className="bg-red-500 hover:bg-red-600 text-white text-[10px] font-bold px-4 py-2 rounded-full">Shop Now</button>
+              <Link to="/full-wide" className="inline-block bg-red-500 hover:bg-red-600 text-white text-[10px] font-bold px-4 py-2 rounded-full">Shop Now</Link>
             </div>
           </div>
 
@@ -73,7 +76,7 @@ export default function Home2() {
             <div className="relative z-10 space-y-2">
               <span className="text-3xl font-black text-white">40% OFF</span>
               <p className="text-xs text-gray-200">Fresh Milk</p>
-              <button className="bg-red-500 hover:bg-red-600 text-white text-[10px] font-bold px-4 py-2 rounded-full">Shop Now</button>
+              <Link to="/full-wide" className="inline-block bg-red-500 hover:bg-red-600 text-white text-[10px] font-bold px-4 py-2 rounded-full">Shop Now</Link>
             </div>
           </div>
         </section>
@@ -89,11 +92,15 @@ export default function Home2() {
             {/* Chap Sidebar */}
             <div className="space-y-6">
               <div className="bg-gray-50 border border-gray-100 rounded-2xl p-4 space-y-3">
-                {['Juice', 'Vegetables', 'Meat', 'Fruit', 'Bakery'].map((cat, i) => (
-                  <div key={i} className="flex justify-between items-center text-xs font-semibold text-gray-600 hover:text-emerald-600 cursor-pointer border-b border-gray-200/60 pb-2">
-                    <span>{cat}</span>
-                    <span>▾</span>
-                  </div>
+                {CATEGORIES.map((category) => (
+                  <Link
+                    key={category}
+                    to={`/product-list-left?category=${encodeURIComponent(category)}`}
+                    className="flex justify-between items-center text-xs font-semibold text-gray-600 hover:text-emerald-600 border-b border-gray-200/60 pb-2"
+                  >
+                    <span>{category}</span>
+                    <span aria-hidden="true">➔</span>
+                  </Link>
                 ))}
               </div>
 
@@ -106,34 +113,15 @@ export default function Home2() {
                   <h3 className="text-2xl font-black">FRUITS</h3>
                   <p className="text-[10px] text-gray-300">100% Natural Organic</p>
                 </div>
-                <button className="relative z-10 bg-red-500 hover:bg-red-600 text-white text-[10px] font-bold px-4 py-2 rounded-full w-max">Shop Now</button>
+                <Link to="/full-wide" className="inline-block relative z-10 bg-red-500 hover:bg-red-600 text-white text-[10px] font-bold px-4 py-2 rounded-full w-max">Shop Now</Link>
               </div>
             </div>
 
             {/* O'ng tomon: 6 ta mahsulot (2x3 grid) */}
             <div className="lg:col-span-3 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-              {[
-                { title: 'Fresh Lemons Packed', price: '$14.85', old: '$18.80', img: 'https://images.unsplash.com/photo-1534531141161-e4ea20b21094?w=300' },
-                { title: 'Organic Ground Coffee', price: '$28.85', old: '$32.80', img: 'https://images.unsplash.com/photo-1559056199-641a0ac8b55e?w=300' },
-                { title: 'Fresh Green Apple Drink', price: '$12.85', old: '$15.80', img: 'https://images.unsplash.com/photo-1613478223719-2ab802602423?w=300' },
-                { title: 'Organic Fresh Watermelon', price: '$19.85', old: '$24.80', img: 'https://images.unsplash.com/photo-1587049352847-4a222e784d38?w=300' },
-                { title: 'Pure Organic Honey Jar', price: '$35.85', old: '$40.80', img: 'https://images.unsplash.com/photo-1587049352851-8d4e89133924?w=300' },
-                { title: 'Fresh Homemade Bread', price: '$08.85', old: '$10.80', img: 'https://images.unsplash.com/photo-1509440159596-0249088772ff?w=300' },
-              ].map((prod, idx) => (
-                <div key={idx} className="bg-white border border-gray-100 rounded-2xl p-4 flex flex-col justify-between hover:shadow-md transition-shadow">
-                  <div className="h-36 w-full bg-gray-50 rounded-xl mb-3 flex items-center justify-center overflow-hidden">
-                    <img src={prod.img} alt={prod.title} className="object-cover h-full w-full" />
-                  </div>
-                  <div className="space-y-1 text-center">
-                    <span className="text-[9px] text-gray-400 uppercase tracking-wider">Organic</span>
-                    <h4 className="font-bold text-xs text-gray-800 line-clamp-1">{prod.title}</h4>
-                    <div className="pt-1">
-                      <span className="text-red-500 font-bold text-xs">{prod.price}</span>
-                      <span className="text-gray-400 text-[10px] line-through ml-1">{prod.old}</span>
-                    </div>
-                  </div>
-                </div>
-              ))}
+              {PRODUCTS.slice(0, 6).map((product) => (
+              <ProductCard key={product.id} product={product} imageHeight="h-36" />
+            ))}
             </div>
           </div>
         </section>
@@ -149,7 +137,7 @@ export default function Home2() {
               <div className="space-y-2 max-w-[60%]">
                 <span className="text-xs font-bold text-red-500">{item.off}</span>
                 <h4 className="font-black text-xs text-gray-900 leading-snug">{item.title}</h4>
-                <button className={`${item.btn} text-white text-[9px] font-bold px-3 py-1.5 rounded-full`}>Shop Now</button>
+                <Link to="/full-wide" className={`${item.btn} text-white text-[9px] font-bold px-3 py-1.5 rounded-full`}>Shop Now</Link>
               </div>
               <img src={item.img} alt={item.title} className="w-20 h-20 rounded-full object-cover shadow" />
             </div>
@@ -205,7 +193,7 @@ export default function Home2() {
             <div className="absolute inset-0 bg-black/40"></div>
             <div className="relative z-10 space-y-2">
               <h3 className="text-lg font-black">Organic & Healthy Vegetables</h3>
-              <button className="bg-red-500 hover:bg-red-600 text-white text-[10px] font-bold px-4 py-2 rounded-full w-max">Shop Now</button>
+              <Link to="/full-wide" className="inline-block bg-red-500 hover:bg-red-600 text-white text-[10px] font-bold px-4 py-2 rounded-full w-max">Shop Now</Link>
             </div>
           </div>
         </section>
@@ -253,7 +241,7 @@ export default function Home2() {
                 <div className="p-4 space-y-2">
                   <span className="text-[10px] text-emerald-600 font-bold uppercase">By Admin</span>
                   <h4 className="font-bold text-xs text-gray-900 line-clamp-2 hover:text-emerald-600 cursor-pointer">{news.title}</h4>
-                  <button className="text-[10px] text-red-500 font-bold pt-1">Read More ➔</button>
+                  <Link to="/blog-full-width" className="inline-block text-[10px] text-red-500 font-bold pt-1">Read More ➔</Link>
                 </div>
               </div>
             ))}

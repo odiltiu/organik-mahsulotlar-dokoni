@@ -1,18 +1,14 @@
-import React from 'react';
+import PageBanner from '../components/PageBanner'
+import ShareButtons from '../components/ShareButtons'
+import BlogSearch from '../components/BlogSearch'
+import { Link } from 'react-router-dom'
+import { CATEGORIES, PRODUCTS } from '../data/products'
 
 export default function BlogRightSide() {
   return (
     <div className="w-full bg-white text-gray-800 font-sans">
       
-      {/* PAGE HEADER BANNER */}
-      <section className="w-full bg-red-500 py-6 px-4 md:px-12 text-white flex items-center justify-between">
-        <h1 className="text-xl md:text-2xl font-bold">Blog Details</h1>
-        <div className="text-xs font-medium space-x-1 opacity-90">
-          <span>Home</span>
-          <span>-</span>
-          <span className="font-semibold">Blog Details</span>
-        </div>
-      </section>
+      <PageBanner title="Blog Details" />
 
       {/* MAIN LAYOUT WITH RIGHT SIDEBAR */}
       <main className="max-w-7xl mx-auto px-4 sm:px-6 py-10 grid grid-cols-1 lg:grid-cols-3 gap-10">
@@ -106,21 +102,9 @@ export default function BlogRightSide() {
               <span className="text-xs px-3 py-1 bg-gray-100 text-gray-600 rounded-md font-medium">Fast Food</span>
             </div>
 
-            <div className="flex items-center gap-3 text-xs text-gray-500">
-              <button className="w-7 h-7 rounded-full bg-gray-100 hover:bg-red-500 hover:text-white transition-colors flex items-center justify-center font-bold">f</button>
-              <button className="w-7 h-7 rounded-full bg-gray-100 hover:bg-red-500 hover:text-white transition-colors flex items-center justify-center font-bold">X</button>
-              <button className="w-7 h-7 rounded-full bg-gray-100 hover:bg-red-500 hover:text-white transition-colors flex items-center justify-center font-bold">in</button>
-            </div>
+            <ShareButtons />
           </div>
 
-          {/* PAGINATION */}
-          <div className="flex items-center justify-center gap-2 pt-4">
-            <button className="px-3 py-1 bg-gray-100 text-gray-500 rounded text-xs font-medium">Previous</button>
-            <button className="px-3 py-1 bg-red-500 text-white rounded text-xs font-bold">1</button>
-            <button className="px-3 py-1 bg-gray-100 text-gray-600 rounded text-xs font-medium">2</button>
-            <button className="px-3 py-1 bg-gray-100 text-gray-600 rounded text-xs font-medium">3</button>
-            <button className="px-3 py-1 bg-gray-100 text-gray-500 rounded text-xs font-medium">Next</button>
-          </div>
 
         </div>
 
@@ -128,31 +112,21 @@ export default function BlogRightSide() {
         <aside className="space-y-8">
           
           {/* SEARCH BOX */}
-          <div className="flex items-center gap-2">
-            <input 
-              type="text" 
-              placeholder="Search here..." 
-              className="w-full px-4 py-2 text-xs border border-gray-200 rounded-lg focus:outline-none focus:border-red-500"
-            />
-            <button className="px-4 py-2 bg-red-500 text-white rounded-lg text-xs font-bold">
-              Q
-            </button>
-          </div>
+          <BlogSearch />
 
           {/* CATEGORY LIST */}
           <div className="space-y-4">
             <h3 className="text-sm font-bold text-gray-900 border-b pb-2">Category</h3>
             <ul className="space-y-2 text-xs font-medium text-gray-600">
-              {[
-                { name: 'Milks & Dairies', count: 12 },
-                { name: 'Sea Food', count: 16 },
-                { name: 'Fresh Fruit', count: 21 },
-                { name: 'Pet Food', count: 14 },
-                { name: 'Meat Food', count: 28 },
-              ].map((item, idx) => (
-                <li key={idx} className="flex items-center justify-between hover:text-red-500 cursor-pointer">
-                  <span>{item.name}</span>
-                  <span className="text-gray-400">({item.count})</span>
+              {CATEGORIES.map((category) => (
+                <li key={category}>
+                  <Link
+                    to={`/product-list-left?category=${encodeURIComponent(category)}`}
+                    className="flex items-center justify-between hover:text-red-500"
+                  >
+                    <span>{category}</span>
+                    <span className="text-gray-400">({PRODUCTS.filter((product) => product.category === category).length})</span>
+                  </Link>
                 </li>
               ))}
             </ul>

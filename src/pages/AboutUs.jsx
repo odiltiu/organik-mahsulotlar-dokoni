@@ -1,18 +1,11 @@
-import React from 'react';
+import PageBanner from '../components/PageBanner'
+
 
 export default function AboutUs() {
   return (
     <div className="w-full bg-white text-gray-800 font-sans">
       
-      {/* PAGE HEADER / BREADCRUMB BANNER */}
-      <section className="w-full bg-red-500 py-6 px-4 md:px-12 text-white flex items-center justify-between">
-        <h1 className="text-xl md:text-2xl font-bold">About Us</h1>
-        <div className="text-xs font-medium space-x-1 opacity-90">
-          <span>Home</span>
-          <span>-</span>
-          <span className="font-semibold">About Us</span>
-        </div>
-      </section>
+      <PageBanner title="About Us" />
 
       <main className="max-w-7xl mx-auto px-4 sm:px-6 py-12 space-y-16">
 

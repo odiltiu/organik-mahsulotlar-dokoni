@@ -1,57 +1,72 @@
-import React from 'react';
-import { Routes, Route } from 'react-router-dom';
-import Header from './components/Header';
-import Footer from './components/Footer';
+import { lazy, Suspense } from 'react'
+import { Navigate, Route, Routes } from 'react-router-dom'
+import Footer from './components/Footer'
+import Header from './components/Header'
+import ScrollToTop from './components/ScrollToTop'
 
-// Pages
-import Home1 from './pages/Home1';
-import Home2 from './pages/Home2';
-import Home3 from './pages/Home3';
-import AboutUs from './pages/AboutUs';
-import BlogFullWidth from './pages/BlogFullWidth';
-import BlogRightSide from './pages/BlogRightSide';
-import Card from './pages/Card';
-import Chackout from './pages/Chackout';
-import Faq from './pages/Faq';
-import FullWide from './pages/FullWide';
-import Login from './pages/Login';
-import ProductDetails from './pages/ProductDetails';
-import ProductListLeft from './pages/ProductListLeft';
-import Registion from './pages/Registion';
+const Home1 = lazy(() => import('./pages/Home1'))
+const Home2 = lazy(() => import('./pages/Home2'))
+const Home3 = lazy(() => import('./pages/Home3'))
+const AboutUs = lazy(() => import('./pages/AboutUs'))
+const BlogFullWidth = lazy(() => import('./pages/BlogFullWidth'))
+const BlogRightSide = lazy(() => import('./pages/BlogRightSide'))
+const CartPage = lazy(() => import('./pages/CartPage'))
+const CheckoutPage = lazy(() => import('./pages/CheckoutPage'))
+const Faq = lazy(() => import('./pages/Faq'))
+const FullWide = lazy(() => import('./pages/FullWide'))
+const Login = lazy(() => import('./pages/Login'))
+const NotFound = lazy(() => import('./pages/NotFound'))
+const ProductDetails = lazy(() => import('./pages/ProductDetails'))
+const ProductListLeft = lazy(() => import('./pages/ProductListLeft'))
+const RegisterPage = lazy(() => import('./pages/RegisterPage'))
+const WishlistPage = lazy(() => import('./pages/WishlistPage'))
+
+function PageLoader() {
+  return (
+    <div role="status" className="py-24 text-center text-xs text-gray-400">
+      Loading...
+    </div>
+  )
+}
 
 function App() {
   return (
     <>
+      <ScrollToTop />
       <Header />
-      <Routes>
-        {/* Asosiy sahifalar */}
-        <Route path="/" element={<Home1 />} />
-        <Route path="/home1" element={<Home1 />} />
-        <Route path="/home2" element={<Home2 />} />
-        <Route path="/home3" element={<Home3 />} />
+      <Suspense fallback={<PageLoader />}>
+        <Routes>
+          <Route path="/" element={<Home1 />} />
+          <Route path="/home1" element={<Navigate to="/" replace />} />
+          <Route path="/home2" element={<Home2 />} />
+          <Route path="/home3" element={<Home3 />} />
 
-        {/* Katalog va Mahsulotlar */}
-        <Route path="/product-list-left" element={<ProductListLeft />} />
-        <Route path="/full-wide" element={<FullWide />} />
-        <Route path="/product-details" element={<ProductDetails />} />
+          <Route path="/product-list-left" element={<ProductListLeft />} />
+          <Route path="/full-wide" element={<FullWide />} />
+          <Route path="/product/:id" element={<ProductDetails />} />
+          <Route path="/product-details" element={<Navigate to="/product/1" replace />} />
 
-        {/* Savatcha va Buyurtma */}
-        <Route path="/card" element={<Card />} />
-        <Route path="/chackout" element={<Chackout />} />
+          <Route path="/cart" element={<CartPage />} />
+          <Route path="/card" element={<Navigate to="/cart" replace />} />
+          <Route path="/checkout" element={<CheckoutPage />} />
+          <Route path="/chackout" element={<Navigate to="/checkout" replace />} />
+          <Route path="/wishlist" element={<WishlistPage />} />
 
-        {/* Profil va Kirish */}
-        <Route path="/login" element={<Login />} />
-        <Route path="/registion" element={<Registion />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<RegisterPage />} />
+          <Route path="/registion" element={<Navigate to="/register" replace />} />
 
-        {/* Blog va Ma'lumot sahifalari */}
-        <Route path="/blog-full-width" element={<BlogFullWidth />} />
-        <Route path="/blog-right-side" element={<BlogRightSide />} />
-        <Route path="/about-us" element={<AboutUs />} />
-        <Route path="/faq" element={<Faq />} />
-      </Routes>
+          <Route path="/blog-full-width" element={<BlogFullWidth />} />
+          <Route path="/blog-right-side" element={<BlogRightSide />} />
+          <Route path="/about-us" element={<AboutUs />} />
+          <Route path="/faq" element={<Faq />} />
+
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+      </Suspense>
       <Footer />
     </>
-  );
+  )
 }
 
-export default App;
+export default App
